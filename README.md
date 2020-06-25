@@ -8,6 +8,7 @@ Start the online IDE and use Context Mapper right now:
 <a href="https://gitpod.io/from-referrer/" style="padding: 10px;">
     <img src="https://gitpod.io/button/open-in-gitpod.svg" width="150" alt="Push" align="center">
 </a>
+<br/><br/>
 
 In the folder `src/main/cml` you find a small CML demo (`demo.cml`) where you can start to familiarize yourself with our DSL and our tools.
 You can find more info's about the tool and a complete documentation on our website [https://contextmapper.org/](https://contextmapper.org/).
