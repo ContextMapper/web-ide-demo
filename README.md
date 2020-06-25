@@ -12,7 +12,7 @@ Start the online IDE and use Context Mapper right now:
 <br/><br/>
 
 ## Open the Demo File
-In the folder `src/main/cml` you find a small **[CML demo](./src/main/cml/demo.cml)** where you can start to familiarize yourself with our DSL and our tools.
+In the folder `src/main/cml` you find a small **[CML demo](./src/main/cml/demo.cml)** (DDD sample application) where you can start to familiarize yourself with our DSL and our tools.
 You can find more info's about the tool and a complete documentation on our website [https://contextmapper.org/](https://contextmapper.org/).
 
 ## Create Your Own Context Mapping Repository
