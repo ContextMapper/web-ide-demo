@@ -3,7 +3,7 @@ language: java
 jdk:
 - openjdk11
 
-install: "/bin/true/"
+install: "/bin/true"
 
 script: ./gradlew clean build
 
