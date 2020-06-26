@@ -1,6 +1,7 @@
+![Context Mapper](https://raw.githubusercontent.com/wiki/ContextMapper/context-mapper-dsl/logo/cm-logo-github-small.png)
+# Context Mapper Demo for Online IDE 
 [![Build Status](https://travis-ci.com/ContextMapper/web-ide-demo.svg?branch=master)](https://travis-ci.com/ContextMapper/web-ide-demo) [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ContextMapper/web-ide-demo) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# Context Mapper Demo for Online IDE (Gitpod)
 Welcome to Context Mapper's demo repository. It illustrates how you can configure your own repository for the usage of Context Mapper in the online IDE [Gitpod](https://www.gitpod.io/).
 
 ## Start Using Context Mapper Now
