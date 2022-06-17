@@ -1,0 +1,89 @@
+
+
+Domain ResourceManagement {
+    domainVisionStatement = "TBD."
+
+    Subdomain WorkForce {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain Equipments {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain Suppliers {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain BulkManagement {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain Materials {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain Agreements {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain Quary {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+
+}
+
+Domain DailyActivity {    
+    domainVisionStatement = "TBD."
+    Subdomain MaterialTicket {        
+        type = CORE_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain TransportTicket {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain WorkShift {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain WorkShiftActivity {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+
+}
+
+Domain ProjectPlanning {
+    domainVisionStatement = "TBD."
+    Subdomain PurchaseOrder {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain DailyPlan {        
+        type = CORE_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+
+}
+Domain ProjectTracking {
+    domainVisionStatement = "TBD."
+    Subdomain DailyReport {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain ProjectCost {        
+        type = CORE_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain TransportCost {        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+    Subdomain MaterialsCost{        
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "TBD."
+    }
+
+}
