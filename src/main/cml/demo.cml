@@ -1,5 +1,5 @@
 ContextMap DDDSampleMap {
-	
+	state = TO_BE
     contains OrdenesEntregaContext
     contains NotificacionesContext
     contains ProveedoresContext
