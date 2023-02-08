@@ -1,0 +1,83 @@
+Domain Delivery {
+    domainVisionStatement = "El modelo de dominio de Delivery representa la relacion entre restaurantes, supermercados y establecimientos de comida con 
+                            cualquier usuario que desee comprar sus productos.
+                            
+                            Representa la entrega a domicilio de comida que puede ser rastreada en tiempo real y que es entregada en el menor tiempo posible."
+
+    Subdomain FleetManagment{
+        type = CORE_DOMAIN
+
+        domainVisionStatement = "FleetManagment administra la flota de domiciliarios que se encargan de hacer la recoleccion y entrega de comida"
+        Entity Driver {
+            String name
+            String vehiculo
+            location location
+        }
+    }
+
+    Subdomain RouteManagment  {
+		type = CORE_DOMAIN
+		domainVisionStatement = "RouteManagment administra la generacion, optimizacion, control y seguimiento de las rutas de entrega o recoleccion
+                                de comida teniendo en cuenta factores ambientales para lograr el recorrido en el menor tiempo posible"
+		Entity Route {
+			List<point> points
+			List<paquete> paquetes
+			role conductor
+			datetime inicio
+			datetime final
+		}
+	}
+
+	Subdomain OrderLifeCycleManagment {
+		type = CORE_DOMAIN
+		domainVisionStatement = "OrderLifeCycleManagment administra cada uno de los eventos logisticos de transporte, almacenamiento o entrega que 
+								tiene un paquete hasta la entrega final.
+								
+								A traves de los eventos se puede conocer a detalle cual es la ubicacion de cada paquete y cual es el responsable del mismo."
+		Entity Order {
+			List<Shipments> shipment
+		}
+		Entity Shipment{
+			location origen
+			location destino
+			List<product> products
+			List<event_> events
+		}
+		Entity Event_ {
+			usuario responsable
+			String status // Estado por los que pasa en paquete en_almacen, en_transito, en_camino, entregado, etc.
+		}
+	}
+
+	Subdomain RestaurantsManagment {
+		type = CORE_DOMAIN
+		domainVisionStatement = "RestaurantsManagment relaciona administra los restaurantes o proveedores de comida del sistema"
+		Entity Restaurant {
+			String name
+			String dni
+		}
+		Entity Product {
+			String name
+			float price
+		}
+	}
+
+	Subdomain IdentityAccessManagment {
+		type = GENERIC_SUBDOMAIN
+		domainVisionStatement = "IdentityAccessManagment gestiona el acceso y permiso que tienen los usuarios del sistema para interactuar con cada componente."
+		Entity Usuario {
+			String name
+			role role
+		}
+		Entity Role {
+			String name
+			String descripcion
+			List<String> permisos
+		}
+	}
+
+	Subdomain FinancialManagment {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "FinancialManagment administra los procesos de pagos a domiciliarios, nomina, etc"
+	}
+}

@@ -1,79 +1,160 @@
-/* The DDD Cargo sample application modeled in CML. Note that we split the application into multiple bounded contexts. */
 ContextMap DDDSampleMap {
-	contains CargoBookingContext
-	contains VoyagePlanningContext
-	contains LocationContext
+	
+    contains OrdenesEntregaContext
+    contains NotificacionesContext
+    contains ProveedoresContext
+    contains LogisticaContext
+    contains OrdenesDespachoContext
+    contains ProductoContext
+    contains RutasContext
+    contains SeguimientoContext
+    contains OrdenesTransporteContext
+    contains EntregaContext
+   
 
-	/* As Evans mentions in his book (Bounded Context chapter): The voyage planning can be seen as
-	 * separated bounded context. However, it still shares code with the booking application (CargoBookingContext).
-	 * Thus, they are in a 'Shared-Kernel' relationship.
-	 */
-	CargoBookingContext [SK]<->[SK] VoyagePlanningContext
+    
+    NotificacionesContext [U]->[D] OrdenesEntregaContext
+    ProveedoresContext[U]->[D] OrdenesEntregaContext
+    
+    OrdenesEntregaContext [SK]<->[SK] OrdenesDespachoContext
+ 
+    LogisticaContext [D,ACL]<-[U] OrdenesDespachoContext
+    OrdenesDespachoContext [D,ACL]<-[U,OHS,PL] ProductoContext
 
-	/* Note that the splitting of the LocationContext is not mentioned in the original DDD sample of Evans.
-	 * However, locations and the management around them, can somehow be seen as a separated concept which is used by other
-	 * bounded contexts. But this is just an example, since we want to demonstrate our DSL with multiple bounded contexts.
-	 */
-	CargoBookingContext [D]<-[U,OHS,PL] LocationContext
+    OrdenesDespachoContext [SK]<->[SK] OrdenesTransporteContext
 
-	VoyagePlanningContext [D]<-[U,OHS,PL] LocationContext
-
+    RutasContext[D,ACL]<-[U] OrdenesTransporteContext
+	RutasContext[U,OHS,PL]->[D] EntregaContext
+    RutasContext [U,PL]->[D,ACL]  SeguimientoContext
 }
 
-/* The original booking application context */
-BoundedContext CargoBookingContext {
-	Module cargo {
-		basePackage = se.citerus.dddsample.domain.model
 
-		Aggregate CargoItineraryLegDeliveryRouteSpecification {
-			Entity Cargo
-			ValueObject Delivery
-			ValueObject HandlingActivity
-			ValueObject Itinerary
-			ValueObject Leg
-			ValueObject RouteSpecification
-			enum TransportStatus {
-	            NOT_RECEIVED, IN_PORT, ONBOARD_CARRIER, CLAIMED, UNKNOWN
-			}
-			enum RoutingStatus {
-				NOT_ROUTED, ROUTED, MISROUTED
-			}
-		}
-	}
+BoundedContext OrdenesEntregaContext {
+	domainVisionStatement ="Donde se verifica la disponiblidad de los productos"
+    Module ordenesEntrega {
+        basePackage = se.citerus.dddsample.domain.model
 
-	Module handling {
-		basePackage = se.citerus.dddsample.domain.model
-
-		Aggregate Handling {
-			DomainEvent HandlingEvent
-			ValueObject HandlingHistory
-		}
-	}
+        Aggregate OrdenesEntrega {
+            Entity OrdenesEntrega
+            ValueObject UnLocode
+            ValueObject OrdenesEntregaShared
+        }
+    }
 }
 
-/* We split the Voyage Planning into a separate bounded context as Evans proposes it in his book. */
-BoundedContext VoyagePlanningContext {
-	Module voyage {
-		basePackage = se.citerus.dddsample.domain.model
+BoundedContext NotificacionesContext {
+	domainVisionStatement ="Donde se actualizan y notifican a los distintas entidades en caso de retrasos o incidencias en el camino."
+    Module notificaciones {
+        basePackage = se.citerus.dddsample.domain.model
 
-		Aggregate Voyage {
-			Entity Voyage
-			ValueObject CarrierMovement
-			ValueObject Schedule
-			ValueObject VoyageNumber
-		}
-	}
+        Aggregate Notificaciones {
+            Entity Notificaciones
+            ValueObject UnLocode
+            ValueObject NotificacionesShared
+        }
+    }
 }
 
-/* Separate bounded context for managing the locations. */
-BoundedContext LocationContext {
-	Module location {
-		basePackage = se.citerus.dddsample.domain.model
+BoundedContext ProveedoresContext {
+	domainVisionStatement ="Cuando no se tienen disponibilidad de los productos en las bodegas abastecen los puntos de distribución"
+    Module proveedores {
+        basePackage = se.citerus.dddsample.domain.model
 
-		Aggregate Location {
-			Entity Location
-			ValueObject UnLocode
-			ValueObject LocationShared
-		}
-	}
+        Aggregate Proveedores {
+            Entity Proveedores
+            ValueObject UnLocode
+            ValueObject ProveedoresShared
+        }
+    }
+}
+
+BoundedContext LogisticaContext {
+	domainVisionStatement ="Donde se coordina la logística de distribución, se lleva a cabo el despacho y empaquetado de los productos"
+    Module logistica {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate Logistica {
+            Entity Logistica
+            ValueObject UnLocode
+            ValueObject LogisticaShared
+        }
+    }
+}
+
+BoundedContext OrdenesDespachoContext {
+	domainVisionStatement ="Donde se lleva a cabo el checkout de los paquetes, la verificación de la disponibilidad de los transportes propios."
+    Module OrdenesDespacho {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate OrdenesDespacho {
+            Entity OrdenesDespacho
+            ValueObject UnLocode
+            ValueObject OrdenesDespachoShared
+        }
+    }
+}
+
+BoundedContext ProductoContext {
+	domainVisionStatement ="Item que esta asociado a una orden para ser entregada a un cliente"
+    Module Producto {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate Producto {
+            Entity Producto
+            ValueObject UnLocode
+            ValueObject ProductoShared
+        }
+    }
+}
+
+BoundedContext RutasContext {
+	domainVisionStatement ="Rutas creadas para distribucion de los productos , donde se crea la ruta optima para realizar la entrega de estos"
+    Module Rutas {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate Rutas {
+            Entity Rutas
+            ValueObject UnLocode
+            ValueObject RutasShared
+        }
+    }
+}
+
+BoundedContext SeguimientoContext {
+	domainVisionStatement ="Ubicación en tiempo real de cada transporte por GPS"
+    Module Seguimiento {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate Seguimiento {
+            Entity Seguimiento
+            ValueObject UnLocode
+            ValueObject SeguimientoShared
+        }
+    }
+}
+
+BoundedContext OrdenesTransporteContext {
+	domainVisionStatement ="Estas son creadas para realizar el seguimiento en un transporte dado de un producto en ditribución"
+    Module OrdenesTransporte {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate OrdenesTransporte {
+            Entity OrdenesTransporte
+            ValueObject UnLocode
+            ValueObject OrdenesTransporteShared
+        }
+    }
+}
+
+BoundedContext EntregaContext {
+	domainVisionStatement ="Donde se realiza la entrega de los productos a los clientes con dos modalidades y se rastrea en tiempo real mediante GPS."
+    Module Entrega {
+        basePackage = se.citerus.dddsample.domain.model
+
+        Aggregate Entrega {
+            Entity Entrega
+            ValueObject UnLocode
+            ValueObject EntregaShared
+        }
+    }
 }
