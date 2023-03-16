@@ -1,43 +1,36 @@
 ContextMap DDDSampleMap {
 	state = TO_BE
-    contains OrdenesEntregaContext
+    contains OrdenesContext
     contains NotificacionesContext
     contains ProveedoresContext
     contains LogisticaContext
-    contains OrdenesDespachoContext
     contains ProductoContext
     contains RutasContext
     contains SeguimientoContext
-    contains OrdenesTransporteContext
     contains EntregaContext
-   
 
+    OrdenesContext[U,PL]->[D] NotificacionesContext
+    ProveedoresContext[U]->[D] ProductoContext
     
-    NotificacionesContext [U]->[D] OrdenesEntregaContext
-    ProveedoresContext[U]->[D] OrdenesEntregaContext
-    
-    OrdenesEntregaContext [SK]<->[SK] OrdenesDespachoContext
+    OrdenesContext [D,ACL]<-[U,OHS,PL] ProductoContext
  
-    LogisticaContext [D,ACL]<-[U] OrdenesDespachoContext
-    OrdenesDespachoContext [D,ACL]<-[U,OHS,PL] ProductoContext
+    LogisticaContext [D,ACL]<-[U] EntregaContext
+    EntregaContext [D,ACL]<-[U,OHS,PL] OrdenesContext
 
-    OrdenesDespachoContext [SK]<->[SK] OrdenesTransporteContext
-
-    RutasContext[D,ACL]<-[U] OrdenesTransporteContext
 	RutasContext[U,OHS,PL]->[D] EntregaContext
     RutasContext [U,PL]->[D,ACL]  SeguimientoContext
 }
 
 
-BoundedContext OrdenesEntregaContext {
-	domainVisionStatement ="Donde se verifica la disponiblidad de los productos"
-    Module ordenesEntrega {
+BoundedContext OrdenesContext {
+	domainVisionStatement ="Donde se crean las ordenes de entrega"
+    Module ordenes {
         basePackage = se.citerus.dddsample.domain.model
 
-        Aggregate OrdenesEntrega {
-            Entity OrdenesEntrega
+        Aggregate OrdenesContext {
+            Entity OrdenesContext
             ValueObject UnLocode
-            ValueObject OrdenesEntregaShared
+            ValueObject OrdenesShared
         }
     }
 }
@@ -81,19 +74,6 @@ BoundedContext LogisticaContext {
     }
 }
 
-BoundedContext OrdenesDespachoContext {
-	domainVisionStatement ="Donde se lleva a cabo el checkout de los paquetes, la verificación de la disponibilidad de los transportes propios."
-    Module OrdenesDespacho {
-        basePackage = se.citerus.dddsample.domain.model
-
-        Aggregate OrdenesDespacho {
-            Entity OrdenesDespacho
-            ValueObject UnLocode
-            ValueObject OrdenesDespachoShared
-        }
-    }
-}
-
 BoundedContext ProductoContext {
 	domainVisionStatement ="Item que esta asociado a una orden para ser entregada a un cliente"
     Module Producto {
@@ -129,19 +109,6 @@ BoundedContext SeguimientoContext {
             Entity Seguimiento
             ValueObject UnLocode
             ValueObject SeguimientoShared
-        }
-    }
-}
-
-BoundedContext OrdenesTransporteContext {
-	domainVisionStatement ="Estas son creadas para realizar el seguimiento en un transporte dado de un producto en ditribución"
-    Module OrdenesTransporte {
-        basePackage = se.citerus.dddsample.domain.model
-
-        Aggregate OrdenesTransporte {
-            Entity OrdenesTransporte
-            ValueObject UnLocode
-            ValueObject OrdenesTransporteShared
         }
     }
 }

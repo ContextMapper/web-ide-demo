@@ -1,9 +1,7 @@
-# Estudiantes 
--Zully Alarcon
-
+# Estudiantes:
 -Jarvi Zambrano
-
 -Sebastián Noreña Márquez
+-Zully Alarcon
 
 *Lenguaje ubicuo* 
 
@@ -13,6 +11,10 @@
 *Mapa de contexto* 
 
 ![demo_ContextMap (1)](https://user-images.githubusercontent.com/78800255/217425900-a11b727c-9cdc-4eff-9ba9-b077cd2674fd.png)
+
+Relaciones entre los contextos - actualizada
+
+![Screenshot 2023-03-15 at 10 56 46 PM](src-gen/TO_BE_ContextMap.png)
 
 Relaciones entre los contextos 
 
