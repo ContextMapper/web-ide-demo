@@ -9,8 +9,6 @@ ContextMap DDDSampleMap {
     contains SeguimientoContext
     contains EntregaContext
 
-    //Donde se lleva a cabo el checkout de los paquetes, la verificación de la disponibilidad de los transportes propios.
-
     OrdenesContext[U,PL]->[D] NotificacionesContext
     ProveedoresContext[U]->[D] ProductoContext
     
