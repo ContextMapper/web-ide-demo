@@ -4,5 +4,7 @@ image:
   file: .gitpod.Dockerfile
 vscode:
   extensions:
-    - contextmapper.context-mapper-vscode-extension
     - jebbs.plantuml
+    - contextmapper.context-mapper-vscode-extension
+    - vscjava.vscode-java-pack
+    - asciidoctor.asciidoctor-vscode
