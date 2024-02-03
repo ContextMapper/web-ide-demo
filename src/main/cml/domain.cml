@@ -1,0 +1,54 @@
+ContextMap Propiedades_Andes {
+	contains Informacion_BienesRaices
+	contains Informacion_Terreno
+	contains Informacion_Inquilinos
+
+	Informacion_BienesRaices [SK]<->[SK] Informacion_Terreno
+
+	Informacion_BienesRaices [D]<-[U,OHS,PL] Informacion_Inquilinos
+
+	Informacion_Terreno [D]<-[U,OHS,PL] Informacion_Inquilinos
+
+}
+
+BoundedContext Informacion_BienesRaices {
+	Module cargo {
+		basePackage = se.citerus.dddsample.domain.model
+
+		Aggregate CargoItineraryLegDeliveryRouteSpecification {
+			Entity Cargo
+		}
+	}
+
+	Module handling {
+		basePackage = se.citerus.dddsample.domain.model
+
+	}
+}
+
+/* We split the Voyage Planning into a separate bounded context as Evans proposes it in his book. */
+BoundedContext Informacion_Terreno {
+	Module voyage {
+		basePackage = se.citerus.dddsample.domain.model
+
+		Aggregate Voyage {
+			Entity Voyage
+			ValueObject CarrierMovement
+			ValueObject Schedule
+			ValueObject VoyageNumber
+		}
+	}
+}
+
+/* Separate bounded context for managing the locations. */
+BoundedContext Informacion_Inquilinos {
+	Module location {
+		basePackage = se.citerus.dddsample.domain.model
+
+		Aggregate Location {
+			Entity Location
+			ValueObject UnLocode
+			ValueObject LocationShared
+		}
+	}
+}
