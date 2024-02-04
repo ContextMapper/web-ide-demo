@@ -1,54 +1,70 @@
-ContextMap Propiedades_Andes {
-	contains Informacion_BienesRaices
-	contains Informacion_Terreno
-	contains Informacion_Inquilinos
+Domain BienesRaicesDomain {
+    domainVisionStatement = "
+        Proveer información sobre bienes raíces comerciales tales como listados
+        y detalles de propiedades, información precisa sobre arrendatarios, 
+        ransacciones sobre arrendamientos y comparativos de ventas
+    "
 
-	Informacion_BienesRaices [SK]<->[SK] Informacion_Terreno
+    Subdomain CapturaCompaniasDomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "
+            Recolectar la información de compañias relacionadas a bienes raices
+            comerciales en un mercado específico
+        "
+    }
 
-	Informacion_BienesRaices [D]<-[U,OHS,PL] Informacion_Inquilinos
+    Subdomain CapturaContractualDomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "
+            Recopilar la información contractual y de transacciones sobre todos
+            los movimientos de las compañias de bienes raices comerciales para
+            mantener un historial con cadencia
+        "
+    }
 
-	Informacion_Terreno [D]<-[U,OHS,PL] Informacion_Inquilinos
+    Subdomain CapturaGeoespacialDomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "
+            Compilar detalladamente la información geoespacial y características de
+            alojamientos sobre las compañias en un mercado específico
+        "
+    }
 
-}
+    Subdomain CapturaCatastralDomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "
+            Capturar la información detallada de lotes, edificios y pisos sobre
+            las compañias y propiedades de bienes raices.
+        "
+    }
 
-BoundedContext Informacion_BienesRaices {
-	Module cargo {
-		basePackage = se.citerus.dddsample.domain.model
 
-		Aggregate CargoItineraryLegDeliveryRouteSpecification {
-			Entity Cargo
-		}
-	}
+    Subdomain ProcesamientoReglasDomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "
+            garantizar la calidad de las fuentes recolectadas con el objetivo de
+            asegurarle a los clientes que la inforamción de bienes raices es
+            concreta, completa, consistente, unica y oportuna.
+        "
+    }
 
-	Module handling {
-		basePackage = se.citerus.dddsample.domain.model
+    Subdomain ValidacionInformacionDomain {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "
+            revisar que las fuentes de datos provean información correcta y de alta
+            confiabilidad, aseguranto la calidad de sus fuentes, la consistencia,
+            y la completitud
+        "
+    }
 
-	}
-}
+    Subdomain EnriquecimientoInformacionDomain {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "
+            revisar que las fuentes de datos provean información correcta y de alta
+            confiabilidad, aseguranto la calidad de sus fuentes, la consistencia,
+            y la completitud
+        "
+    }
 
-/* We split the Voyage Planning into a separate bounded context as Evans proposes it in his book. */
-BoundedContext Informacion_Terreno {
-	Module voyage {
-		basePackage = se.citerus.dddsample.domain.model
-
-		Aggregate Voyage {
-			Entity Voyage
-			ValueObject CarrierMovement
-			ValueObject Schedule
-			ValueObject VoyageNumber
-		}
-	}
-}
-
-/* Separate bounded context for managing the locations. */
-BoundedContext Informacion_Inquilinos {
-	Module location {
-		basePackage = se.citerus.dddsample.domain.model
-
-		Aggregate Location {
-			Entity Location
-			ValueObject UnLocode
-			ValueObject LocationShared
-		}
-	}
+    
 }
