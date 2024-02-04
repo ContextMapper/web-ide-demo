@@ -66,23 +66,6 @@ Domain BienesRaicesDomain {
         "
     }
 
-    Subdomain AnaliticaDomain {
-        type = GENERIC_SUBDOMAIN
-        domainVisionStatement = "
-            Revisar las caracteristicas de las propiedades y la disponibilidad de la misma
-        "
-    }    
-
-    Subdomain InformacionPropietariosyArrendatariosDomain {
-        type = GENERIC_SUBDOMAIN
-        domainVisionStatement = "
-            revisar los sitios web de las empresas, los sitios de redes sociales y los registros 
-	    comerciales para verificar la información de las direcciones, recopilar múltiples
-	    contactos clave, identificar grupos industriales, ver inquilinos con próximas
-	    fechas de vencimiento, valor de alquileres, entre otros
-        "
-    } 
-
     Subdomain InformeyEstadodeMercadoDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
@@ -95,8 +78,8 @@ Domain BienesRaicesDomain {
     Subdomain TransacciondeVentasyArriendosDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
-            monitorear y actualizar semanalmente para dar cuenta de
-	    nuevos arrendamientos, extensiones, vencimientos
+            extraer y procesar los datos de los arrendamientos
+            registrados para oficinas y propiedades industriales
         "
     }
 }
