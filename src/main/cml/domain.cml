@@ -39,7 +39,7 @@ Domain BienesRaicesDomain {
     }
 
 
-    Subdomain ProcesamientoReglasDomain {
+    Subdomain ProcesamientoFuentesDomain {
         type = CORE_DOMAIN
         domainVisionStatement = "
             garantizar la calidad de las fuentes recolectadas con el objetivo de
@@ -69,7 +69,7 @@ Domain BienesRaicesDomain {
     Subdomain AnaliticaDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
-            revisar las caracteristicas de las propiedades y la disponibilidad de la misma
+            Revisar las caracteristicas de las propiedades y la disponibilidad de la misma
         "
     }    
 
@@ -77,9 +77,9 @@ Domain BienesRaicesDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
             revisar los sitios web de las empresas, los sitios de redes sociales y los registros 
-			comerciales para verificar la información de las direcciones, recopilar múltiples
-			contactos clave, identificar grupos industriales, ver inquilinos con próximas
-			fechas de vencimiento, valor de alquileres, entre otros
+	    comerciales para verificar la información de las direcciones, recopilar múltiples
+	    contactos clave, identificar grupos industriales, ver inquilinos con próximas
+	    fechas de vencimiento, valor de alquileres, entre otros
         "
     } 
 
@@ -87,8 +87,8 @@ Domain BienesRaicesDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
             permitir a los usuarios desglosar de propiedad principal, la participación de mercado
-			de las agencias, las tendencias históricas de arrendamiento y venta, y más en un área
-			geográfica específica o dentro de un conjunto de propiedades competitivas
+	    de las agencias, las tendencias históricas de arrendamiento y venta, y más en un área
+	    geográfica específica o dentro de un conjunto de propiedades competitivas
         "
     }
 
@@ -96,7 +96,7 @@ Domain BienesRaicesDomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "
             monitorear y actualizar semanalmente para dar cuenta de
-			nuevos arrendamientos, extensiones, vencimientos
+	    nuevos arrendamientos, extensiones, vencimientos
         "
     }
 }
