@@ -1,0 +1,98 @@
+// Dominio Principal de SaludTech
+Domain SaludTech {
+  domainVisionStatement = "Recaudar, procesar, distribuir y anonimizar imágenes y diagnósticos médicos."
+
+  // Subdominios principales
+  Subdomain  Recoleccion {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Recolectan, estandarizan y anonimizan las imágenes y diagnosticos medicos."
+  }
+
+  Subdomain  Procesamiento {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Aplican modelos de IA para clasificar y extraer información de las imágenes médicas y diagnosticos medicos."
+  }
+
+  Subdomain Distribucion {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Habilitan la consulta y descarga de las imágenes médicas y diagnosticos medicos anonimizados."
+  }
+
+  // Subdominios de soporte
+  Subdomain Proveedores {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Organizan la adquisicion de las imágenes médicas y diagnosticos medicos desde la infraestructura de los proveedores."
+  }
+
+  Subdomain Clientes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Gestionan los clientes, suscripciones, comercialización y entrenamientos de productos IA."
+  }
+
+  // Subdominios generales
+  Subdomain Notificaciones {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Gestionan las notificaciones de todos los flujos de trabajo."
+  }
+
+  Subdomain Facturacion {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Gestionan la facturacion, cobros y pagos de todos los flujos de trabajo."
+  }
+}
+
+// Contextos
+BoundedContext ContextoIngestaAutomatizada implements Recoleccion {
+    responsibilities = "Automatizar la recolección de imágenes médicas desde hospitales y proveedores. Estandarizar y validar los datos antes de su procesamiento."
+}
+
+BoundedContext ContextoProcesamientoInteligenteDeImagenes implements Procesamiento {
+    responsibilities =  "Aplicación de modelos de IA para clasificar y extraer información de las imágenes médicas. Optimización del rendimiento de los modelos para escalar con grandes volúmenes de datos."
+}
+
+BoundedContext ContextoAnonimizacionYCanonizacion implements Recoleccion {
+  responsibilities = "Limpieza y eliminación de información sensible en imágenes médicas. Canonización de datos para asegurar formatos estándar y cumplir normativas."
+}
+
+BoundedContext ContextoDistribucionDeDatos implements Distribucion {
+  responsibilities = "Facilitar la consulta y descarga de imágenes médicas anonimizadas. Manejar accesos de clientes en función de sus planes de suscripción."
+}
+
+BoundedContext ContextoInfraestructuraDistribuida implements Recoleccion, Procesamiento, Distribucion {
+  responsibilities = "Manejar la segmentación de datos por país y la infraestructura en la nube. Asegurar la residencia de datos conforme a normativas de cada región."
+}
+
+BoundedContext ContextoSeguridadYRegulacion implements Recoleccion, Procesamiento, Distribucion {
+  responsibilities = "Supervisar el cumplimiento de normativas de seguridad de los datos en cada región. Implementar controles de acceso y monitoreo en la plataforma."
+}
+
+BoundedContext ContextoTransaccional implements Notificaciones, Facturacion {
+  responsibilities = "Gestionar las notificaciones, facturacion, cobros y pagos de todos los flujos de trabajo."
+}
+
+// Mapa de Contextos
+ContextMap ImagenesClinicasSaludTechAlpes {
+  state = TO_BE
+
+  contains ContextoIngestaAutomatizada
+  contains ContextoProcesamientoInteligenteDeImagenes
+  contains ContextoAnonimizacionYCanonizacion
+  contains ContextoDistribucionDeDatos
+  contains ContextoInfraestructuraDistribuida
+  contains ContextoSeguridadYRegulacion
+  contains ContextoTransaccional
+
+  ContextoIngestaAutomatizada [OHS] -> ContextoAnonimizacionYCanonizacion
+  ContextoAnonimizacionYCanonizacion [OHS] -> ContextoProcesamientoInteligenteDeImagenes
+  ContextoProcesamientoInteligenteDeImagenes [OHS] -> ContextoDistribucionDeDatos
+  ContextoInfraestructuraDistribuida [OHS] -> ContextoIngestaAutomatizada
+  ContextoInfraestructuraDistribuida [OHS] -> ContextoAnonimizacionYCanonizacion
+  ContextoInfraestructuraDistribuida [OHS] -> ContextoProcesamientoInteligenteDeImagenes
+  ContextoInfraestructuraDistribuida [OHS] -> ContextoDistribucionDeDatos
+  ContextoSeguridadYRegulacion [OHS] -> ContextoIngestaAutomatizada
+  ContextoSeguridadYRegulacion [OHS] -> ContextoAnonimizacionYCanonizacion
+  ContextoSeguridadYRegulacion [OHS] -> ContextoProcesamientoInteligenteDeImagenes
+  ContextoSeguridadYRegulacion [OHS] -> ContextoDistribucionDeDatos
+  ContextoTransaccional [OHS] -> ContextoIngestaAutomatizada
+  ContextoTransaccional [OHS] -> ContextoDistribucionDeDatos
+}

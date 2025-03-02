@@ -1,0 +1,73 @@
+// Dominio Principal de SaludTech
+Domain SaludTech {
+  domainVisionStatement = "Recaudar, procesar, distribuir y anonimizar imágenes y diagnósticos médicos."
+
+  // Subdominios principales
+  Subdomain  Recoleccion {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Recolectan, estandarizan y anonimizan las imágenes y diagnosticos medicos."
+  }
+
+  Subdomain  Procesamiento {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Aplican modelos de IA para clasificar y extraer información de las imágenes médicas y diagnosticos medicos."
+  }
+
+  Subdomain Distribucion {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Habilitan la consulta y descarga de las imágenes médicas y diagnosticos medicos anonimizados."
+  }
+
+  // Subdominios de soporte
+  Subdomain Proveedores {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Organizan la adquisicion de las imágenes médicas y diagnosticos medicos desde la infraestructura de los proveedores."
+  }
+
+  Subdomain Clientes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Gestionan los clientes, suscripciones, comercialización y entrenamientos de productos IA."
+  }
+
+  // Subdominios generales
+  Subdomain Notificaciones {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Gestionan las notificaciones de todos los flujos de trabajo."
+  }
+
+  Subdomain Facturacion {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Gestionan la facturacion, cobros y pagos de todos los flujos de trabajo."
+  }
+}
+
+// Contextos
+BoundedContext ContextoGestionDeImagenesYDiagnosticosMedicos implements Recoleccion, Procesamiento, Distribucion {
+  responsibilities = "Recolectar, estandarizar y anonimizar imágenes y diagnósticos médicos."
+}
+
+BoundedContext ContextosProveedores implements Proveedores {
+  responsibilities = "Organizar la adquisición de imágenes médicas y diagnósticos médicos desde la infraestructura de los proveedores."
+}
+
+BoundedContext ContextosClientes implements Clientes {
+  responsibilities = "Distribución, comercializacion y entrenamiento de IA de las imágenes médicas y diagnósticos médicos anonimizados a los clientes."
+}
+
+BoundedContext ContextoTransaccional implements Notificaciones, Facturacion {
+  responsibilities = "Gestionar las notificaciones, facturacion, cobros y pagos de todos los flujos de trabajo."
+}
+
+// Mapa de Contextos
+ContextMap ImagenesClinicasSaludTechAlpes {
+  state = AS_IS
+  contains ContextoGestionDeImagenesYDiagnosticosMedicos
+  contains ContextosProveedores
+  contains ContextosClientes
+  contains ContextoTransaccional
+  
+  ContextosProveedores -> ContextoGestionDeImagenesYDiagnosticosMedicos
+  ContextoGestionDeImagenesYDiagnosticosMedicos -> ContextosClientes
+  ContextoTransaccional -> ContextosProveedores
+  ContextoTransaccional -> ContextosClientes
+}
