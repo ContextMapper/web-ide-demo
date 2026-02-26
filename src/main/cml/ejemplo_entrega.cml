@@ -1,0 +1,65 @@
+Domain InformacionBienesRaicesComerciales {
+  domainVisionStatement = "AdquisiciÃ³n, procesamiento y consolidaciÃ³n de informaciÃ³n sobre bienes raÃ­ces comerciales"
+
+  Subdomain Auditoria {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AuditorÃ­a, validaciÃ³n y calidad de datos de bienes comerciales."
+  }
+
+  Subdomain Companias {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AdquisiciÃ³n y consolidaciÃ³n de informaciÃ³n legal y comercial de compaÃ±Ã­as."
+  }
+
+  Subdomain Contratos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AdquisiciÃ³n y consolidaciÃ³n de informaciÃ³n contractual y movimientos inmobiliarios de compaÃ±Ã­as en propiedades comerciales."
+  }
+
+  Subdomain Planos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AdquisiciÃ³n y consolidaciÃ³n de datos planos e informaciÃ³n catastral de propiedades comerciales."
+  }
+
+  Subdomain GIS {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AdquisiciÃ³n y consolidaciÃ³n de informaciÃ³n geo-espacial y alojamiento de propiedades comerciales."
+  }
+
+  Subdomain Listados {
+    type = CORE_DOMAIN
+    domainVisionStatement = "AdquisiciÃ³n y consolidaciÃ³n de listados de propiedades comerciales."
+  }
+}
+
+
+BoundedContext ContextoPropiedad implements Contratos, Planos, GIS, Listados  {
+
+}
+
+BoundedContext ContextoCompanias implements Companias {
+
+}
+
+BoundedContext ContextoAuditoria implements Auditoria {
+
+}
+
+ContextMap PropiedadesDeLosAlpes {
+	state = AS_IS
+
+	contains ContextoPropiedad
+	contains ContextoCompanias
+	contains ContextoAuditoria
+	
+	/* 
+	 * Tenga en cuenta que dado como el sistema se encuentra se puede asumir un Shared Kernel
+	 * pero si usted pensÃ³ en otro tipo de relaciÃ³n es totalmente vÃ¡lido
+	 */
+	ContextoPropiedad [SK]<->[SK] ContextoCompanias
+
+	ContextoAuditoria [D] <- [U] ContextoPropiedad
+
+	ContextoAuditoria [D] <- [U] ContextoCompanias
+
+}

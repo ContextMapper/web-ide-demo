@@ -1,0 +1,63 @@
+/*
+ * Modelo AS-IS para SaludTech de los Alpes.
+ * Refleja el estado actual del sistema con límites menos definidos
+ * y componentes estrechamente acoplados.
+ */
+ContextMap SaludTechASIS {
+    contains MonolithicSystem
+
+    /* Todos los subdominios forman actualmente parte de un único sistema monolítico.
+     * No hay límites claros ni separación de responsabilidades.
+     */
+}
+
+/* Sistema monolítico que combina todas las responsabilidades. */
+BoundedContext MonolithicSystem {
+    Module processing {
+        basePackage = saludtech.monolith.processing
+
+        Aggregate MedicalImage {
+            Entity MedicalImage
+            ValueObject Modality
+            ValueObject AnatomicalRegion
+            ValueObject Pathology
+        }
+    }
+
+    Module anonymization {
+        basePackage = saludtech.monolith.anonymization
+
+        Aggregate Anonymization {
+            Entity AnonymizationScript
+            ValueObject Validation
+        }
+    }
+
+    Module tagging {
+        basePackage = saludtech.monolith.tagging
+
+        Aggregate Tag {
+            Entity Tag
+            ValueObject Demographics
+            ValueObject ImageAttributes
+            ValueObject ClinicalContext
+        }
+    }
+
+    Module products {
+        basePackage = saludtech.monolith.products
+
+        Aggregate AIProduct {
+            Entity STAStandard
+        }
+    }
+
+    Module partnership {
+        basePackage = saludtech.monolith.partnership
+
+        Aggregate DataPartner {
+            Entity Contract
+            ValueObject Compensation
+        }
+    }
+}

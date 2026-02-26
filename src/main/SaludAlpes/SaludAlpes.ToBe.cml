@@ -1,0 +1,247 @@
+/*
+ * Modelo DDD para SaludTech de los Alpes implementado en CML.  
+ * La aplicación está dividida en múltiples contextos delimitados.
+*/
+
+Domain SaludTechDeLosAlpes {
+  domainVisionStatement = "Adquisicion, procesamiento y distribucion de imagenes medicas anonimizadas para companias de inteligencia artificial (IA)."
+
+  /* Subdominio para el procesamiento de imágenes médicas. */
+  Subdomain ImageProcessing {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Procesamiento de imagenes medicas de alta calidad para su uso en modelos de inteligencia artificial."
+
+	/* Historia de Usuario:
+     * Como investigador en IA,
+     * quiero que las imágenes médicas estén preprocesadas y optimizadas,
+     * para garantizar la calidad y consistencia en el entrenamiento de modelos.
+     */
+
+
+  }
+
+  /* Subdominio para la anonimización de datos. */
+  Subdomain DataAnonymization {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Anonimizacion y limpieza de datos medicos garantizando cumplimiento normativo."
+
+	/* Historia de Usuario:
+     * Como administrador de datos,
+     * quiero que toda la información sensible sea anonimizada automáticamente,
+     * para cumplir con regulaciones como HIPAA y proteger la privacidad del paciente.
+     */
+
+  }
+
+  /* Subdominio para la generación de etiquetas y metadatos. */
+  Subdomain MetadataTagging {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Generacion de etiquetas y enriquecimiento de datos medicos anonimizados."
+
+	/* Historia de Usuario:
+     * Como científico de datos,
+     * quiero acceder a conjuntos de datos enriquecidos con etiquetas y metadatos relevantes,
+     * para mejorar la precisión y relevancia de los modelos entrenados.
+     */
+
+  }
+
+  /* Subdominio para gestionar las relaciones con los socios de datos. */
+  Subdomain DataPartnership {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestion de relaciones con socios de datos para garantizar el suministro sostenible de imagenes medicas."
+
+	/* Historia de Usuario:
+     * Como gerente de asociaciones,
+     * quiero gestionar acuerdos con socios de datos de manera eficiente,
+     * para garantizar un flujo constante y confiable de imágenes médicas.
+     */
+
+  }
+
+  /* Subdominio para productos para desarrolladores de IA. */
+  Subdomain AIProducts {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Productos y servicios para desarrolladores de inteligencia artificial basados en datos anonimizados y etiquetados."
+
+	/* Historia de Usuario:
+     * Como desarrollador de IA,
+     * quiero acceder fácilmente a datasets anonimizados y etiquetados,
+     * para entrenar modelos de IA sin preocuparme por la privacidad y el cumplimiento normativo.
+     */
+
+  }
+
+  /* Subdominio para expansión global y cumplimiento normativo. */
+  Subdomain GlobalExpansion {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Estrategias para cumplir normativas locales y expandir operaciones en mercados globales."
+
+	/* Historia de Usuario:
+     * Como director de expansión,
+     * quiero que el sistema cumpla con las normativas locales de cada país,
+     * para asegurar la continuidad del negocio en mercados globales.
+     */
+
+  }
+
+  Subdomain Infrastructure {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Estrategias para cumplir normativas locales y expandir operaciones en mercados globales."
+
+	/* Historia de Usuario:
+     * Como ingeniero de operaciones,
+     * quiero que los pipelines de CI/CD sean rápidos y confiables,
+     * para garantizar despliegues frecuentes y sin interrupciones.
+     */
+
+  }
+
+}
+
+/* Contexto delimitado para el procesamiento de imágenes médicas. */
+BoundedContext ImageProcessingContext implements ImageProcessing {
+  domainVisionStatement = "Procesamiento avanzado de imagenes medicas como base para la generacion de etiquetas y modelos de IA."
+
+   Module processing {
+    basePackage = saludtech.domain.processing
+    Aggregate MedicalImage {
+      Entity MedicalImage
+      ValueObject Modality
+      ValueObject AnatomicalRegion
+      ValueObject Pathology
+      enum ProcessingStatus {
+        NOT_PROCESSED, IN_PROCESS, PROCESSED
+      }
+    }
+  }
+}
+
+/* Contexto delimitado para la anonimización de datos. */
+BoundedContext DataAnonymizationContext implements DataAnonymization {
+  domainVisionStatement = "Garantizar la privacidad y limpieza de datos anonimizados antes de su procesamiento."
+
+    Module anonymization {
+    basePackage = saludtech.domain.anonymization
+    Aggregate Anonymization {
+      Entity AnonymizationScript
+      ValueObject Validation
+      DomainEvent DataAnonymized
+      enum AnonymizationStatus {
+        NOT_ANONYMIZED, ANONYMIZED, ERROR
+      }
+    }
+  }
+}
+
+/* Contexto delimitado para la generación de etiquetas y metadatos. */
+BoundedContext MetadataTaggingContext implements MetadataTagging {
+  domainVisionStatement = "Enriquecer los datos anonimizados con etiquetas relevantes para desarrolladores de IA."
+
+    Module tagging {
+    basePackage = saludtech.domain.tagging
+    Aggregate Tag {
+      Entity Tag
+      ValueObject Demographics
+      ValueObject ImageAttributes
+      ValueObject ClinicalContext
+    }
+  }
+}
+
+/* Contexto delimitado para gestionar las relaciones con los socios de datos. */
+BoundedContext DataPartnershipContext implements DataPartnership {
+  domainVisionStatement = "Gestionar acuerdos y contratos con socios para garantizar un flujo constante de datos anonimizados."
+
+    Module partnership {
+    basePackage = saludtech.domain.partnership
+    Aggregate DataPartner {
+      Entity Contract
+      ValueObject Compensation
+    }
+  }
+}
+
+/* Contexto delimitado para productos para desarrolladores de IA. */
+BoundedContext AIProductsContext implements AIProducts {
+  domainVisionStatement = "Proveer soluciones a desarrolladores de IA con datos anonimizados y enriquecidos."
+
+    Module products {
+    basePackage = saludtech.domain.products
+    Aggregate AIProduct {
+      Entity STAStandard
+      Entity STAPro
+      Entity STAEnterprise
+    }
+  }
+}
+
+/* Contexto delimitado para expansión global y cumplimiento normativo. */
+BoundedContext GlobalExpansionContext implements GlobalExpansion {
+  domainVisionStatement = "Cumplir con normativas locales y expandir operaciones a nuevos mercados internacionales."
+    
+  Module expansion {
+    basePackage = saludtech.domain.expansion
+    Aggregate Regulation {
+      Entity Compliance
+      ValueObject Region
+      ValueObject LocalLaws
+    }
+  }
+}
+
+BoundedContext InfrastructureContext implements Infrastructure {
+  domainVisionStatement = "Gestión de despliegue, monitoreo, CI/CD, almacenamiento y seguridad"
+
+Module infrastructure {
+    basePackage = saludtech.domain.infrastructure
+    Aggregate Deployment {
+      Entity Server
+      ValueObject Id
+      ValueObject Status
+      ValueObject Infrastructure_Region
+    }
+    Aggregate Security {
+      Entity AccessControl
+      ValueObject UserId
+      ValueObject Role
+      ValueObject Permissions
+    }
+    Aggregate Monitoring {
+      Entity Log
+      ValueObject LogId
+      ValueObject Time
+      ValueObject Message
+      ValueObject Severity
+    }
+  }
+}
+
+ContextMap SaludTechTOBE {
+  state = TO_BE
+  contains ImageProcessingContext
+  contains DataAnonymizationContext
+  contains MetadataTaggingContext
+  contains DataPartnershipContext
+  contains AIProductsContext
+  contains GlobalExpansionContext
+  contains InfrastructureContext
+
+  /* Núcleo Compartido: ImageProcessingContext y DataAnonymizationContext comparten lógica común. */
+  ImageProcessingContext [SK]<->[SK] DataAnonymizationContext
+
+  /* Upstream-Downstream: MetadataTaggingContext depende de los datos procesados por ImageProcessingContext. */
+  ImageProcessingContext [U, OHS, PL]->[D] MetadataTaggingContext
+
+  /* Upstream-Downstream: AIProductsContext consume datos de MetadataTaggingContext. */
+  MetadataTaggingContext [U, OHS, PL]->[D] AIProductsContext
+
+  /* Proveedor-Cliente: DataPartnershipContext suministra datos a ImageProcessingContext. */
+  DataPartnershipContext [D]<-[U, OHS] ImageProcessingContext
+
+  /* Upstream-Downstream: GlobalExpansionContext respalda a AIProductsContext garantizando el cumplimiento normativo. */
+  GlobalExpansionContext [D]<-[U, OHS, PL] AIProductsContext
+
+  /* Soporte: InfrastructureContext actúa como proveedor de servicios exclusivamente para AIProductsContext. */
+  AIProductsContext [D] <-[U, OHS] InfrastructureContext
+}
